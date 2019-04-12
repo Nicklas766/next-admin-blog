@@ -1,0 +1,37 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "next start -p %PORT%",
+    "start-docker": "docker-compose up -d express",
+    "start-docker-mongo": "docker-compose up -d mongodb",
+    "stop-docker": "docker-compose down",
+    "start80": "next start -p 80",
+    "start801": "PORT=80 npm start",
+    "startServer": "NODE_ENV=production PORT=3000 node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "cross-env": "^5.2.0",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "isomorphic-unfetch": "^3.0.0",
+    "mongo-connecter": "^1.0.4",
+    "mongodb": "^3.1.13",
+    "next": "^8.0.3",
+    "next-ga": "^2.3.4",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-markdown": "^4.0.6",
+    "react-string-replace": "^0.4.1",
+    "serve-favicon": "^2.5.0"
+  }
+}
