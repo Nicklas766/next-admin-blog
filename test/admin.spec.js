@@ -52,6 +52,17 @@ describe('This will test admin routes', () => {
             img: "my img"
         })
 
+        await articleCollection.insert({
+            _id: 2,
+            slug: "my-second-slug",
+            title: "title",
+            meta_description: "my description",
+            visible: "my visible",
+            name: "my name",
+            text: "my text",
+            img: "my img"
+        })
+
     });
 
     it('should login admin', (done) => {
@@ -118,7 +129,7 @@ describe('This will test admin routes', () => {
             .expect(200, done);
     });
 
-    it('should update article', (done) => {
+    it('should fail to update article', (done) => {
         
         agent.post("/admin/update")
             .set('Accept', 'application/json')
@@ -150,6 +161,56 @@ describe('This will test admin routes', () => {
                 img: "my img",
             })
             .expect(200, done);
+    });
+
+    it('should fail to publish since empty', (done) => {
+        
+        agent.post("/admin/publish")
+            .set('Accept', 'application/json')
+            .send({
+                slug: "",
+                title: "",
+                meta_description: "",
+                visible: "",
+                name: "",
+                text: "",
+                img: "",
+            })
+            .expect(400, done);
+    });
+
+    it('should fail to update since empty', (done) => {
+        
+        agent.post("/admin/update")
+            .set('Accept', 'application/json')
+            .send({
+                _id: 1,
+                slug: "",
+                title: "",
+                meta_description: "",
+                visible: "",
+                name: "",
+                text: "",
+                img: "",
+            })
+            .expect(400, done);
+    });
+
+    it('should fail since we cannot update our article with _id = 1 to the same slug as _id = 2', (done) => {
+        
+        agent.post("/admin/publish")
+            .set('Accept', 'application/json')
+            .send({
+                _id: 1,
+                slug: "my-second-slug",
+                title: "title",
+                meta_description: "my description",
+                visible: "my visible",
+                name: "my name",
+                text: "my text",
+                img: "my img"
+            })
+            .expect(409, done);
     });
 
 

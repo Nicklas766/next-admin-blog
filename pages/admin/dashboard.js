@@ -23,9 +23,11 @@ class AdminDashboard extends React.Component {
             img: "",
             articles: [],
             value: "new article",
-            workMode: false
+            workMode: false,
+            messageToAuthor: ""
         };
-        
+
+        this.getNewPost = this.getNewPost.bind(this);
         this.publish = this.publish.bind(this);
         this.update = this.update.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -39,21 +41,33 @@ class AdminDashboard extends React.Component {
         this.setState({articles: data});
     }
 
-    async publish() {
-        const content = this.state;
-        delete content.articles;
-        delete content.value;
-        delete content.workMode;
-        const response = await axios.post("/admin/publish", content);
+    getNewPost() {
+        var clone = Object.assign({}, this.state);
+        delete clone.articles;
+        delete clone.value;
+        delete clone.workMode;
+        delete clone.messageToAuthor;
+        return clone;
     }
 
-    async update() {
-        const content = this.state;
-        delete content.articles;
-        delete content.value;
-        delete content.workMode;
-        console.log(this.state._id)
-        const response = await axios.post("/admin/update", content);
+    publish = async () => {
+        try {
+            await axios.post("/admin/publish", this.getNewPost());
+            this.setState({messageToAuthor: "You published it!"})
+        } 
+        catch {
+            this.setState({messageToAuthor: "Could not publish"})
+        }
+    }
+
+    update = async () => {
+        try {
+            await axios.post("/admin/update", this.getNewPost());
+            this.setState({messageToAuthor: "You updated it!"})
+        } 
+        catch {
+            this.setState({messageToAuthor: "Could not update"})
+        }
     }
 
     workWithArticle() {
@@ -80,7 +94,6 @@ class AdminDashboard extends React.Component {
     }
 
     handleSelectChange(event) {
-        console.log(event.target.value)
         this.setState({value: event.target.value});
     }
 
@@ -94,6 +107,7 @@ class AdminDashboard extends React.Component {
 
             <ContentWrapper>
                 <h1>Dashboard</h1>
+                <p>{this.state.messageToAuthor}</p>
 
                 {this.state.workMode == false &&
                 <div>

@@ -41,9 +41,14 @@ router.use(function(req, res, next) {
 router.post('/publish', jsonParser, async (req, res) => {
 
     // All inputs need to exist
-    for (x of ["slug", "title", "meta_description", "visible", "name", "text", "img"])
+    for (x of ["slug", "title", "meta_description", "visible", "name", "text", "img"]) {
         if (!req.body.hasOwnProperty(x))
             return res.status(400).send('Invalid details');
+
+        if (req.body[x].length == 0)
+            return res.status(400).send('Invalid details');
+    }
+        
 
     try {
         const found = await articleCollection.fetch({slug: req.body.slug})
@@ -70,12 +75,20 @@ router.post('/update', jsonParser, async (req, res) => {
         if (!req.body.hasOwnProperty(x))
             return res.status(400).send('Invalid details');
 
+        if (req.body[x].length == 0)
+            return res.status(400).send('Invalid details');
+
     try {
         const found = await articleCollection.fetch({_id: req.body._id})
 
         if (found === undefined || found.length == 0) {
             return res.status(404).send('Internal error occured!');
         }
+
+        // DIFFERENT ID BUT SAME SLUG NOT ALLOWED!
+        const foundSlug = await articleCollection.fetch({slug: req.body.slug})
+        if (foundSlug !== undefined && foundSlug.length !== 0 && foundSlug._id != req.body._id)
+            return res.status(409).send('Already exists!');
 
         const id = req.body._id;
         delete req.body._id
