@@ -24,7 +24,7 @@ class Home extends React.Component {
                 <p>text here</p>
 
                 {this.props.articles.map(article => (
-                    <li key={article.name}>
+                    <li key={article._id}>
                         <Link as={`/article/${article.slug}`} href={`/article?slug=${article.slug}`}>
                             <a>{article.name}</a>
                         </Link>
@@ -37,11 +37,11 @@ class Home extends React.Component {
 
 
 Home.getInitialProps = async function() {
-    const res = await fetch('http://localhost:3000/fetch')
+    const res = await fetch('http://localhost:3000/api/articles')
     const data = await res.json()
   
     return {
-      articles: data.data
+      articles: data
     }
 }
 

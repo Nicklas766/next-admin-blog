@@ -10,7 +10,7 @@ const Post = (props) => {
         <Layout>
           <Head>
             <title>{props.data.title}</title>
-            <meta name="description" content={props.data.metaDescription}/>
+            <meta name="description" content={props.data.meta_description}/>
           </Head>
 
           <ContentWrapper>
@@ -25,8 +25,9 @@ const Post = (props) => {
 
 Post.getInitialProps = async function(context) {
   const { slug } = context.query
-  const res = await fetch(`http://localhost:3000/fetch/${slug}`)
+  const res = await fetch(`http://localhost:3000/api/article/${slug}`)
   const data = await res.json()
+  console.log(data)
 
   return { data }
 }

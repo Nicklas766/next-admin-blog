@@ -15,10 +15,11 @@ class AdminDashboard extends React.Component {
         this.state = {
             slug: "",
             title: "",
-            description: "",
+            meta_description: "",
             visible: "",
             name: "",
             text: "",
+            img: "",
             articles: [],
             value: "new article",
             workMode: false
@@ -31,13 +32,17 @@ class AdminDashboard extends React.Component {
     }
 
     async componentDidMount() {
-        const res = await fetch('http://localhost:3000/fetch')
+        const res = await fetch('http://localhost:3000/api/articles')
         const data = await res.json()
-        this.setState({articles: data.data});
+        this.setState({articles: data});
     }
 
     async publish() {
-        //const response = await axios.post("/admin/login", {username: this.state.username, password: this.state.password});
+        const content = this.state;
+        delete content.articles;
+        delete content.value;
+        delete content.workMode;
+        const response = await axios.post("/admin/publish", content);
     }
 
     workWithArticle() {
@@ -49,10 +54,11 @@ class AdminDashboard extends React.Component {
         this.setState({
             slug: article.slug,
             title: article.title,
-            description: article.metaDescription,
+            meta_description: article.metaDescription,
             visible: article.visible,
             name: article.name,
-            text: article.text
+            text: article.text,
+            img: article.img
         });
         this.setState({workMode: true});
     }
@@ -92,10 +98,11 @@ class AdminDashboard extends React.Component {
                     <p>Meta stuff:</p>
                     <InputForm name="slug" type={"input"} handleChange={this.handleChange} default={this.state.slug || ''} maxLength={""} >Slug</InputForm>
                     <InputForm name="title" type={"input"} handleChange={this.handleChange} default={this.state.title || ''} maxLength={""} >Title</InputForm>
-                    <InputForm name="description" type={"input"} handleChange={this.handleChange} default={this.state.description || ''} maxLength={""} >Description</InputForm>
+                    <InputForm name="meta_description" type={"input"} handleChange={this.handleChange} default={this.state.meta_description || ''} maxLength={""} >Description</InputForm>
 
                     <p>Publish stuff:</p>
                     <InputForm name="visible" type={"input"} handleChange={this.handleChange} default={this.state.visible || ''} maxLength={""}>Should Visible? Yes/No</InputForm>
+                    <InputForm name="img" type={"input"} handleChange={this.handleChange} default={this.state.img || ''} maxLength={""}>URL to image</InputForm>
 
                     <p>Article:</p>
                     <InputForm name="name" type={"input"} handleChange={this.handleChange} default={this.state.name || ''} maxLength={""} >Name</InputForm>

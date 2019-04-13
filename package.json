@@ -12,7 +12,8 @@
     "stop-docker": "docker-compose down",
     "start80": "next start -p 80",
     "start801": "PORT=80 npm start",
-    "startServer": "NODE_ENV=production PORT=3000 node server.js"
+    "startServer": "NODE_ENV=production PORT=3000 node server.js",
+    "mocha": "nyc --reporter=html --reporter=text mocha --reporter spec \"test/*.spec.js\""
   },
   "keywords": [],
   "author": "",
@@ -33,5 +34,10 @@
     "react-markdown": "^4.0.6",
     "react-string-replace": "^0.4.1",
     "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.3",
+    "nyc": "^13.3.0",
+    "supertest": "^4.0.2"
   }
 }

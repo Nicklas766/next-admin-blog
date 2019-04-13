@@ -10,6 +10,9 @@ var favicon = require('serve-favicon')
 var path = require('path')
 
 
+const dsn = "mongodb://localhost:27017/blog"
+const articleCollection  = require('mongo-connecter').init(dsn, 'articles')
+
 
 
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -25,6 +28,8 @@ const staticSendOptions = (type) => ({
 });
 
 var adminRoutes = require('./routes/admin');
+var apiRoutes = require('./routes/api');
+var usersRoutes = require('./routes/users');
 
 app.prepare()
 .then(() => {
@@ -36,8 +41,8 @@ app.prepare()
   server.use(favicon(path.join(__dirname, 'static', 'favicon.ico')))
 
   server.use('/admin', adminRoutes);
-
-
+  server.use('/api', apiRoutes);
+  server.use('/users', usersRoutes);
 
   // --------------------------BEGIN SEO AND GOOGLE STUFF --------------------------
   server.get('/robots.txt', (req, res) => {
@@ -55,50 +60,15 @@ app.prepare()
 
 // -------------------------- END SEO AND GOOGLE STUFF --------------------------
 
+server.get('/article/:slug', function(req, res) { 
+  const actualPage = '/article'
+  const queryParams = { slug: req.params.slug }
+  app.render(req, res, actualPage, queryParams)
+});
 
-  const articles = {
-    data: [
-      {
-        id: 1,
-        slug: "my-amazing-summer",
-        title: "the amazing summer | find out more",
-        metaDescription: "it was an amazing day",
-        name: "My amazing summer outdoors",
-        text: '## I love the outdoors, it simply is awesome!' + '\n ### My start' + '\n It was a great start, i started with chilling with a couple friends! '
-      },
-      {
-        id: 2,
-        slug: "hellllooo",
-        title: "helloo",
-        metaDescription: "hellooooo",
-        name: "hello2",
-        text: "hello2"
-      }
-    ]
-  };
-
-  // Get word stuff
-  server.get('/fetch', (req, res) => {
-    res.json(articles)
-  })
-
-  // Get word stuff
-  server.get('/fetch/:slug', (req, res) => {
-    for (var article of articles.data) {
-      if (article.slug == req.params.slug) {
-        res.json(article)
-      }
-    }
-  })
-
-  server.get('/article/:slug', function(req, res) { 
-    const actualPage = '/article'
-    const queryParams = { slug: req.params.slug }
-    app.render(req, res, actualPage, queryParams)
-  });
   
 
-
+  //
   server.get('*', (req, res) => {
     return handle(req, res)
   })
