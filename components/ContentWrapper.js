@@ -21,6 +21,7 @@ const ContentWrapper = (props) => (
           margin: 0 auto;
           padding: 10px;
       }
+
   `}</style>
   </div>
 

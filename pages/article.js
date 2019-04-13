@@ -4,6 +4,24 @@ import Head from 'next/head'
 import fetch from 'isomorphic-unfetch'
 import ReactMarkdown from 'react-markdown';
 
+function Image(props) {
+  return <img {...props} style={{width: '100%'}} />
+}
+
+function renderParagraph(props) {
+  const { children } = props;
+
+  if (children && children[0]
+    && children.length === 1
+    && children[0].props
+    && children[0].props.src) { // rendering media without p wrapper
+
+    return children;
+  }
+
+  return <p>{children}</p>;
+}
+
 const Post = (props) => {
   const input = props.data.text
   return (
@@ -16,7 +34,8 @@ const Post = (props) => {
           <ContentWrapper>
             <h1>{props.data.name}</h1>
             <div>
-              <ReactMarkdown source={input} />
+              <ReactMarkdown source={input} renderers={{image: Image, paragraph: renderParagraph}} />
+
             </div>
           </ContentWrapper>
         </Layout>

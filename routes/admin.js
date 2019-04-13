@@ -4,6 +4,8 @@ const session = require('express-session')
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json()
+const MongoStore = require('connect-mongo')(session);
+
 // db = require('mongodb').connect("mongodb://localhost:27017/blog", {useNewUrlParser : true})
 
 // Retrieve
@@ -14,6 +16,7 @@ const articleCollection  = require('mongo-connecter').init(dsn, 'articles')
 
 router.use(session({
     secret: 'my-badly-placed-token',
+    store: new MongoStore({url: "mongodb://localhost:27017/blog"}),
     resave: false,
     saveUninitialized: true
   }));
@@ -87,7 +90,8 @@ router.post('/update', jsonParser, async (req, res) => {
 
         // DIFFERENT ID BUT SAME SLUG NOT ALLOWED!
         const foundSlug = await articleCollection.fetch({slug: req.body.slug})
-        if (foundSlug !== undefined && foundSlug.length !== 0 && foundSlug._id != req.body._id)
+
+        if (foundSlug !== undefined && foundSlug.length !== 0 && foundSlug[0]._id !== req.body._id)
             return res.status(409).send('Already exists!');
 
         const id = req.body._id;
