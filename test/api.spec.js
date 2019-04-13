@@ -22,6 +22,7 @@ describe('This will test all api routes', () => {
         await articleCollection.reset();
 
         await articleCollection.insert({
+            _id: 1,
             slug: "my-amazing-slug",
             title: "title",
             meta_description: "my description",
@@ -32,6 +33,7 @@ describe('This will test all api routes', () => {
         })
 
         await articleCollection.insert({
+            _id: 2,
             slug: "my-cool-slug",
             title: "title",
             meta_description: "my description",

@@ -13,6 +13,7 @@ class AdminDashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            _id: "new",
             slug: "",
             title: "",
             meta_description: "",
@@ -26,6 +27,7 @@ class AdminDashboard extends React.Component {
         };
         
         this.publish = this.publish.bind(this);
+        this.update = this.update.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.workWithArticle = this.workWithArticle.bind(this);;
@@ -45,6 +47,15 @@ class AdminDashboard extends React.Component {
         const response = await axios.post("/admin/publish", content);
     }
 
+    async update() {
+        const content = this.state;
+        delete content.articles;
+        delete content.value;
+        delete content.workMode;
+        console.log(this.state._id)
+        const response = await axios.post("/admin/update", content);
+    }
+
     workWithArticle() {
         const article = this.state.articles.filter(x => x.slug === this.state.value)[0];
         if (this.state.value === "new article") {
@@ -52,6 +63,7 @@ class AdminDashboard extends React.Component {
             return true;
         }
         this.setState({
+            _id: article._id,
             slug: article.slug,
             title: article.title,
             meta_description: article.meta_description,
@@ -108,7 +120,8 @@ class AdminDashboard extends React.Component {
                     <InputForm name="name" type={"input"} handleChange={this.handleChange} default={this.state.name || ''} maxLength={""} >Name</InputForm>
                     <InputForm name="text" type={"textarea"} handleChange={this.handleChange} default={this.state.text || ''} maxLength={""} >Text</InputForm>
 
-                    <Button onSelect={this.publish}>publish/update</Button>
+                    {this.state._id == "new" &&<Button onSelect={this.publish}>publish</Button>}
+                    {this.state._id != "new" && <Button onSelect={this.update}>update</Button>}
                 </div>}
 
 

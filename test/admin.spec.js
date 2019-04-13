@@ -34,11 +34,15 @@ describe('This will test all failures on admin routes', () => {
     });
 });
 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 describe('This will test admin routes', () => {
     before(async () => {
         await articleCollection.reset();
 
         await articleCollection.insert({
+            _id: 1,
             slug: "my-amazing-slug",
             title: "title",
             meta_description: "my description",
@@ -81,7 +85,7 @@ describe('This will test admin routes', () => {
             .expect(200, 'Success: added', done);
     });
 
-    it('should update article', (done) => {
+    it('should fail to publish article with existing slug', (done) => {
         
         agent.post("/admin/publish")
             .set('Accept', 'application/json')
@@ -94,22 +98,88 @@ describe('This will test admin routes', () => {
                 text: "my text",
                 img: "my img",
             })
-            .expect(200, 'Success: updated', done);
+            .expect(409, done);
     });
 
-    it('should fail to publish or update article due to lack of sent attributes', (done) => {
+    it('should update article', (done) => {
+        
+        agent.post("/admin/update")
+            .set('Accept', 'application/json')
+            .send({
+                _id: 1,
+                slug: "my-amazing-slugve",
+                title: "my title",
+                meta_description: "my description",
+                visible: "my visible",
+                name: "my name",
+                text: "n text",
+                img: "my img",
+            })
+            .expect(200, done);
+    });
+
+    it('should update article', (done) => {
+        
+        agent.post("/admin/update")
+            .set('Accept', 'application/json')
+            .send({
+                _id: 100,
+                slug: "my-amazing-slugddd",
+                title: "my title",
+                meta_description: "my description",
+                visible: "my visible",
+                name: "my name",
+                text: "n texteeeeeeeeeeeeeeeeeeeeeeeee",
+                img: "my img",
+            })
+            .expect(404, done);
+    });
+
+
+    it('should now be able to to publish article with previous existing slug', (done) => {
+        
+        agent.post("/admin/publish")
+            .set('Accept', 'application/json')
+            .send({
+                slug: "my-amazing-slug",
+                title: "my title",
+                meta_description: "my description",
+                visible: "my visible",
+                name: "my name",
+                text: "my text",
+                img: "my img",
+            })
+            .expect(200, done);
+    });
+
+
+});
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+describe('these tests will see if wrong input gets 400 code', () => {
+    before(async () => {
+        await articleCollection.reset();
+    });
+
+
+    it('should fail to publish article', (done) => {
         agent.post("/admin/publish")
             .set('Accept', 'application/json')
             .send({
                 slug: "cool-slug",
-                title: "my title",
-                meta_description: "my description",
-                visible: "my visible",
-                name: "my name"
+                title: "my title"
+            })
+            .expect(400, done);
+    });
+
+    it('should fail to update article', (done) => {
+        agent.post("/admin/update")
+            .set('Accept', 'application/json')
+            .send({
+                slug: "cool-slug"
             })
             .expect(400, done);
     });
 });
-
-
-

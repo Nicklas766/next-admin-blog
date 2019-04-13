@@ -54,8 +54,32 @@ router.post('/publish', jsonParser, async (req, res) => {
             await articleCollection.insert(req.body)
             return res.status(200).send('Success: added');
         } 
-            
-        await articleCollection.collectionDo(col => col.update({slug: req.body.slug}, req.body))
+
+        return res.status(409).send('Already exists!');
+        
+    } 
+    catch (err) {
+        return res.status(400).send('Internal error occured!');
+    }
+});
+
+router.post('/update', jsonParser, async (req, res) => {
+
+    // All inputs need to exist
+    for (x of ["_id", "slug", "title", "meta_description", "visible", "name", "text", "img"])
+        if (!req.body.hasOwnProperty(x))
+            return res.status(400).send('Invalid details');
+
+    try {
+        const found = await articleCollection.fetch({_id: req.body._id})
+
+        if (found === undefined || found.length == 0) {
+            return res.status(404).send('Internal error occured!');
+        }
+
+        const id = req.body._id;
+        delete req.body._id
+        await articleCollection.collectionDo(col => col.update({_id: id}, req.body));
         return res.status(200).send('Success: updated');
     } 
     catch (err) {
