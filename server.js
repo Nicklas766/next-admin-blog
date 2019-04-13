@@ -29,7 +29,6 @@ const staticSendOptions = (type) => ({
 
 var adminRoutes = require('./routes/admin');
 var apiRoutes = require('./routes/api');
-var usersRoutes = require('./routes/users');
 
 app.prepare()
 .then(() => {
@@ -42,7 +41,6 @@ app.prepare()
 
   server.use('/admin', adminRoutes);
   server.use('/api', apiRoutes);
-  server.use('/users', usersRoutes);
 
   // --------------------------BEGIN SEO AND GOOGLE STUFF --------------------------
   server.get('/robots.txt', (req, res) => {
