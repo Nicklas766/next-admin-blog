@@ -4,6 +4,8 @@ import Head from 'next/head'
 import fetch from 'isomorphic-unfetch'
 import ReactMarkdown from 'react-markdown';
 
+import Error from './_error';
+
 function Image(props) {
   return <img {...props} style={{width: '100%'}} />
 }
@@ -23,7 +25,11 @@ function renderParagraph(props) {
 }
 
 const Post = (props) => {
+  if (!props.data) 
+    return <Error statusCode={404}/>;
+  
   const input = props.data.text
+
   return (
         <Layout>
           <Head>
@@ -42,11 +48,15 @@ const Post = (props) => {
       )
 }
 
+
 Post.getInitialProps = async function(context) {
   const { slug } = context.query
   const res = await fetch(`http://localhost:3000/api/article/${slug}`)
+
+  if (res.status == 404)
+    return {data: false}
+
   const data = await res.json()
-  console.log(data)
 
   return { data }
 }

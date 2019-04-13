@@ -52,7 +52,6 @@ router.post('/publish', jsonParser, async (req, res) => {
             return res.status(400).send('Invalid details');
     }
         
-
     try {
         const found = await articleCollection.fetch({slug: req.body.slug})
 
