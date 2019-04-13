@@ -6,13 +6,9 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json()
 const MongoStore = require('connect-mongo')(session);
 
-// db = require('mongodb').connect("mongodb://localhost:27017/blog", {useNewUrlParser : true})
 
-// Retrieve
 const dsn = "mongodb://localhost:27017/blog"
 const articleCollection  = require('mongo-connecter').init(dsn, 'articles')
-
-// db.createCollection("articles", {autoIndexId: true} );
 
 router.use(session({
     secret: 'my-badly-placed-token',

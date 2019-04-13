@@ -5,7 +5,7 @@ const Header = () => (
 <div>
     <Link href={"/"}>
       <a>
-        <span>OutdoorCamping.com</span>
+        <span>example.com</span>
       </a>  
     </Link>
     
@@ -28,12 +28,13 @@ const Header = () => (
             display: flex;
             flex-wrap: wrap;
             text-align: center;
+            background: #1F262E;
           }
 
           nav {
             width: 100%;
-            border-top: 1px solid black;
-            border-bottom: 1px solid black;
+            border-top: 1px solid white;
+            border-bottom: 1px solid white;
           }
 
           a {     
@@ -44,14 +45,15 @@ const Header = () => (
           nav a {
             width: 50px;
             margin: 15px;
-            color: #4c7af1;
+            color: white;
           }
           a:hover {
             opacity: 0.6;
           }
 
           span {
-            color: #15c39a;
+            font-family: Lato,sans-serif;
+            color: #c60000;
             text-align: center;
             width: 100%;
             font-size: 2.5em;

@@ -4,9 +4,7 @@ const session = require('express-session')
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json()
-// db = require('mongodb').connect("mongodb://localhost:27017/blog", {useNewUrlParser : true})
 
-// Retrieve
 const dsn = "mongodb://localhost:27017/blog"
 const articleCollection  = require('mongo-connecter').init(dsn, 'articles')
 

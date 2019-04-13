@@ -8,7 +8,7 @@ const staticSendOptions = (type) => ({
   headers: {'Content-Type': type}
 });
 
-// --------------------------BEGIN SEO AND GOOGLE STUFF --------------------------
+
 router.get('/robots.txt', (req, res) => {
   res.status(200).sendFile('robots.txt', staticSendOptions("text/plain;charset=UTF-8"))
 });

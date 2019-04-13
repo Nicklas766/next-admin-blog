@@ -26,7 +26,7 @@ const Layout = (props) => (
         html, body {
           padding: 0;
           margin: 0;
-          background: #F9FAFF;
+          background: #F9F9F9;
           background-size: 50% 50%;
           background-attachment: fixed;
           background-repeat: no-repeat;*/

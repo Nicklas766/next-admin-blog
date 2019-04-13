@@ -21,7 +21,7 @@ app.prepare().then(() => {
   server.use(favicon(path.join(__dirname, 'static', 'favicon.ico')))
 
   // specific routes
-  server.use('/admin', adminRoutes);
+  server.use('/admin', adminRoutes); // ADD extra description?? for post article ||also add alt and title tag for the image
   server.use('/api', apiRoutes);
   server.use('/', seoRoutes);
 
