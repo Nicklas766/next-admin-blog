@@ -10,15 +10,7 @@ var favicon = require('serve-favicon')
 var path = require('path')
 
 
-const dsn = "mongodb://localhost:27017/blog"
-const articleCollection  = require('mongo-connecter').init(dsn, 'articles')
-
-
-
 const port = parseInt(process.env.PORT, 10) || 3000;
-
-
-
 
 
 // options for static files

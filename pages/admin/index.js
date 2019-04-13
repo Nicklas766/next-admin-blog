@@ -14,7 +14,8 @@ class Admin extends React.Component {
         super(props);
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            logged: false
         };
         this.login = this.login.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -22,6 +23,10 @@ class Admin extends React.Component {
 
     async login() {
         const response = await axios.post("/admin/login", {username: this.state.username, password: this.state.password});
+
+        if (response.status == 200) {
+            this.setState({logged: true});
+        }
     }
 
     handleChange(event) {
@@ -31,7 +36,7 @@ class Admin extends React.Component {
     render = () => (
         <Layout>
             <Head>
-                <title>title here</title>
+                <title>Admin</title>
                 <meta name="robots" content="noindex"/>
                 <meta name="description" content="description here"/>
              </Head>
@@ -39,6 +44,7 @@ class Admin extends React.Component {
             <ContentWrapper>
                 <h1>Admin page</h1>
                 <p>Please leave this page if not authorized</p>
+                {this.state.logged && <a href="/admin/dashboard">Go to dashboard</a>}
                 <InputForm name="username" type={"input"} handleChange={this.handleChange} maxLength={"100"} >Username</InputForm>
                 <InputForm name="password" type={"input"} handleChange={this.handleChange} maxLength={"100"} >Password</InputForm>
                 <Button onSelect={this.login}>login</Button>

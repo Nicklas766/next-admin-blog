@@ -48,8 +48,8 @@ router.post('/publish', jsonParser, async (req, res) => {
     try {
         const found = await articleCollection.fetch({slug: req.body.slug})
 
-        if (found == null) {
-            await articleCollection.collectionDo(col => col.count())
+        if (found === undefined || found.length == 0) {
+            const count = await articleCollection.collectionDo(col => col.count())
             req.body._id = count + 1;
             await articleCollection.insert(req.body)
             return res.status(200).send('Success: added');

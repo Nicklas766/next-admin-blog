@@ -6,12 +6,16 @@ const express = require('express');
 // routes we are testing
 const routes = require("../routes/admin.js");
 
+const dsn = "mongodb://localhost:27017/blog"
+const articleCollection  = require('mongo-connecter').init(dsn, 'articles')
+
 // setup app
 const app = express();
 app.use('/admin', routes);
 const agent = supertest.agent(app);
 
 describe('This will test all failures on admin routes', () => {
+    
 
     it('should return a 302 response and redirect to /admin', (done) => {
         agent.get("/admin/dashboard")
@@ -31,6 +35,21 @@ describe('This will test all failures on admin routes', () => {
 });
 
 describe('This will test admin routes', () => {
+    before(async () => {
+        await articleCollection.reset();
+
+        await articleCollection.insert({
+            slug: "my-amazing-slug",
+            title: "title",
+            meta_description: "my description",
+            visible: "my visible",
+            name: "my name",
+            text: "my text",
+            img: "my img"
+        })
+
+    });
+
     it('should login admin', (done) => {
         agent.post("/admin/login")
             .set('Accept', 'application/json')
@@ -46,12 +65,28 @@ describe('This will test admin routes', () => {
             .expect(404, done);
     });
 
-
-    it('should publish or update article', (done) => {
+    it('should publish new article', (done) => {
+        
         agent.post("/admin/publish")
             .set('Accept', 'application/json')
             .send({
-                slug: "cool-slug",
+                slug: "my-new-article",
+                title: "my title",
+                meta_description: "my description",
+                visible: "my visible",
+                name: "my name",
+                text: "my text",
+                img: "my img",
+            })
+            .expect(200, 'Success: added', done);
+    });
+
+    it('should update article', (done) => {
+        
+        agent.post("/admin/publish")
+            .set('Accept', 'application/json')
+            .send({
+                slug: "my-amazing-slug",
                 title: "my title",
                 meta_description: "my description",
                 visible: "my visible",
@@ -75,3 +110,6 @@ describe('This will test admin routes', () => {
             .expect(400, done);
     });
 });
+
+
+

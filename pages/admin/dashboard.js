@@ -46,7 +46,7 @@ class AdminDashboard extends React.Component {
     }
 
     workWithArticle() {
-        const article = this.state.articles.filter(x => x.name === this.state.value)[0];
+        const article = this.state.articles.filter(x => x.slug === this.state.value)[0];
         if (this.state.value === "new article") {
             this.setState({workMode: true});
             return true;
@@ -54,7 +54,7 @@ class AdminDashboard extends React.Component {
         this.setState({
             slug: article.slug,
             title: article.title,
-            meta_description: article.metaDescription,
+            meta_description: article.meta_description,
             visible: article.visible,
             name: article.name,
             text: article.text,
@@ -87,7 +87,7 @@ class AdminDashboard extends React.Component {
                 <div>
                 <select value={this.state.value} onChange={this.handleSelectChange}>
                     <option key={"new"}>new article</option>)
-                    {this.state.articles.map(article => (<option key={article.name}>{article.name}</option>))}
+                    {this.state.articles.map(article => (<option key={article.slug}>{article.slug}</option>))}
                 </select>
 
                 <Button onSelect={this.workWithArticle}>work with option</Button>
