@@ -50,7 +50,7 @@ describe('This will test all api routes', () => {
         })
     });
 
-    it('test get all', (done) => {
+    it('should succeed to get all articles', (done) => {
         agent.get("/api/articles")
         .set('Accept', 'application/json')
         .expect(function(res) {
@@ -60,7 +60,7 @@ describe('This will test all api routes', () => {
         .expect(200, done);
     });
 
-    it('test get all', (done) => {
+    it('should succeed to get one article', (done) => {
         agent.get("/api/article/my-amazing-slug")
         .set('Accept', 'application/json')
         .expect(function(res) {
@@ -69,7 +69,7 @@ describe('This will test all api routes', () => {
         .expect(200, done);
     });
 
-    it('test get all', (done) => {
+    it('should fail to test get non existing article', (done) => {
         agent.get("/api/article/doesNotExist")
         .expect(404, done);
     });
