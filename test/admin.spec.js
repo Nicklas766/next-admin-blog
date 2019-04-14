@@ -236,6 +236,44 @@ describe('This will test admin routes', () => {
     });
 
 
+    it('PUBLISH: should fail because slugs cannot contain slashes / ', (done) => {
+        
+        agent.post("/admin/publish")
+            .set('Accept', 'application/json')
+            .send({
+                slug: "/e",
+                title: "title",
+                meta_description: "my description",
+                img_url: "img_url",
+                img_alt: "img_alt",
+                img_title: "img_title",
+                name: "my name",
+                introduction: "introduction",
+                text: "my text",
+            })
+            .expect(400, done);
+    });
+
+    it('UPDATE: should fail because slugs cannot contain slashes / ', (done) => {
+        
+        agent.post("/admin/update")
+            .set('Accept', 'application/json')
+            .send({
+                _id: 1,
+                slug: "my-amazi/ng-slugve",
+                title: "my title",
+                meta_description: "my description",
+                img_url: "img_url",
+                img_alt: "img_alt",
+                img_title: "img_title",
+                name: "my name",
+                introduction: "introduction",
+                text: "n text",
+            })
+            .expect(400, done);
+    });
+
+
 });
 
 ///////////////////////////////////////////////////////////////////////

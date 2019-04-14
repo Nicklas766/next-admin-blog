@@ -62,6 +62,10 @@ const getContentIfValid = (body) => {
             return false
     }
 
+    if (body.slug.includes("/")) {
+        return false;
+    }
+
     return {
         _id: body._id,
         slug: body.slug,
