@@ -42,6 +42,7 @@ class Home extends React.Component {
                             </h2>
 
                             <p>
+                                {new Date(article.date).toString()}
                                 {article.introduction}
                             </p>
                         </div>
@@ -115,7 +116,7 @@ class Home extends React.Component {
 
 
 Home.getInitialProps = async function() {
-    const res = await fetch('http://localhost:3000/api/articles')
+    const res = await fetch(process.env.API_URL + '/api/articles')
     const data = await res.json()
   
     return {

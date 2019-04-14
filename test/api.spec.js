@@ -30,8 +30,9 @@ describe('This will test all api routes', () => {
             img_alt: "img_url",
             img_title: "img_url",
             name: "my name",
+            introduction: "my introduction",
             text: "my text",
-            img: "my img"
+            date: new Date()
         })
 
         await articleCollection.insert({
@@ -43,8 +44,9 @@ describe('This will test all api routes', () => {
             img_alt: "img_url",
             img_title: "img_url",
             name: "my name",
+            introduction: "my introduction",
             text: "my text",
-            img: "my img"
+            date: new Date()
         })
     });
 

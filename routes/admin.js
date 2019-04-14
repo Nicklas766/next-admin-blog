@@ -20,6 +20,8 @@ router.use(session({
 // Redirect to login if not logged in
 router.use(function(req, res, next) {
 
+    
+
 
     if (req._parsedUrl.pathname == "/") {
         return next();
@@ -30,73 +32,111 @@ router.use(function(req, res, next) {
     }
 
     if (req.session.user) {
-
         return next();
     }
+
     res.status(403).redirect('/admin');
 });
 
 
-router.post('/publish', jsonParser, async (req, res) => {
-
-    // All inputs need to exist
-    for (x of ["slug", "title", "meta_description", "img_url", "img_alt", "img_title", "name", "introduction", "text"]) {
-        if (!req.body.hasOwnProperty(x))
-            return res.status(400).send('Invalid details');
-
-        if (req.body[x].length == 0)
-            return res.status(400).send('Invalid details');
+/**
+ * checks if request body contains required attributes and then only returns valid attributes
+ */
+const getContentIfValid = (body) => {
+    for (x of ["_id", "slug", "title", "meta_description", "img_url", "img_alt", "img_title", "name", "introduction", "text"]) {
+        if (!body.hasOwnProperty(x))
+             return false
+    
+         if (body[x].length == 0)
+            return false
     }
 
-    try {
-        const found = await articleCollection.fetch({slug: req.body.slug})
+    return {
+        _id: body._id,
+        slug: body.slug,
+        title: body.title,
+        meta_description: body.meta_description,
+        img_url: body.img_url,
+        img_alt: body.img_alt,
+        img_title: body.img_title,
+        name: body.name,
+        introduction: body.introduction,
+        text: body.text,
+    }
+}
 
-        if (found === undefined || found.length == 0) {
-            const count = await articleCollection.collectionDo(col => col.count())
-            req.body._id = count + 1;
-            await articleCollection.insert(req.body)
+const slugExists = (slug) => 
+    articleCollection.fetch({slug: slug})
+    .then(res => (res !== undefined && res.length > 0))
+    .catch(res => false)
+
+/**
+ * checks if article exists
+ */
+const articleExists = (id) => 
+    articleCollection.fetch({_id: id})
+    .then(res => (res !== undefined && res.length > 0))
+    .catch(err => false)
+
+
+
+/**
+ * publishes an article
+ */
+router.post('/publish', jsonParser, async (req, res) => {
+
+    try {
+        req.body._id = await articleCollection.collectionDo(col => col.count()) + 1;
+        const cleanedBody = getContentIfValid(req.body);
+
+        if (cleanedBody) {
+
+            if (await slugExists(req.body.slug)) {
+                return res.status(409).send('Already exists!');
+            }
+            
+            cleanedBody.date = new Date();
+            await articleCollection.insert(cleanedBody)
             return res.status(200).send('Success: added');
         }
 
-        return res.status(409).send('Already exists!');
-
+        return res.status(400).send('Invalid details!');
     }
     catch (err) {
-        return res.status(400).send('Internal error occured!');
+         return res.status(500).send('Internal error occured!');   
     }
+    
 });
 
+/**
+ * updates an article
+ */
 router.post('/update', jsonParser, async (req, res) => {
 
-    // All inputs need to exist
-    for (x of ["_id", "slug", "title", "meta_description", "img_url", "img_alt", "img_title", "name", "introduction", "text"])
-        if (!req.body.hasOwnProperty(x))
-            return res.status(400).send('Invalid details');
+    const cleanedBody = getContentIfValid(req.body);
 
-        if (req.body[x].length == 0)
-            return res.status(400).send('Invalid details');
-
-    try {
-        const found = await articleCollection.fetch({_id: req.body._id})
-
-        if (found === undefined || found.length == 0) {
-            return res.status(404).send('Internal error occured!');
+    if (cleanedBody) {
+        try {
+            if (!await articleExists(req.body._id)) {
+                return res.status(404).send('Internal error occured!');
+            }
+    
+            // DIFFERENT ID BUT SAME SLUG NOT ALLOWED!
+            const foundSlug = await articleCollection.fetch({slug: cleanedBody.slug})
+    
+            if (foundSlug !== undefined && foundSlug.length !== 0 && foundSlug[0]._id !== cleanedBody._id)
+                return res.status(409).send('Already exists!');
+    
+            const id = cleanedBody._id;
+            delete cleanedBody._id
+            await articleCollection.collectionDo(col => col.update({_id: id}, cleanedBody));
+            return res.status(200).send('Success: updated');
         }
-
-        // DIFFERENT ID BUT SAME SLUG NOT ALLOWED!
-        const foundSlug = await articleCollection.fetch({slug: req.body.slug})
-
-        if (foundSlug !== undefined && foundSlug.length !== 0 && foundSlug[0]._id !== req.body._id)
-            return res.status(409).send('Already exists!');
-
-        const id = req.body._id;
-        delete req.body._id
-        await articleCollection.collectionDo(col => col.update({_id: id}, req.body));
-        return res.status(200).send('Success: updated');
+        catch (err) {
+            return res.status(500).send('Internal error occured!');
+        }
     }
-    catch (err) {
-        return res.status(500).send('Internal error occured!');
-    }
+    return res.status(400).send('Invalid details!'); 
 });
 
 
@@ -105,7 +145,7 @@ router.post('/login', jsonParser, (req, res) => {
     const name = req.body.username;
     const pass = req.body.password;
 
-    if (name == "username" && pass == "password") {
+    if (name == (process.env.ADMIN_USERNAME ? process.env.ADMIN_USERNAME : "username") && pass == (process.env.ADMIN_PASSWORD ? process.env.ADMIN_PASSWORD : "password")) {
         req.session.user = name;
         return res.status(200).send('Success!');
     } else {

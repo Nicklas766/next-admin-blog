@@ -47,7 +47,7 @@ const Post = (props) => {
 
 Post.getInitialProps = async function(context) {
   const { slug } = context.query
-  const res = await fetch(`http://localhost:3000/api/article/${slug}`)
+  const res = await fetch(process.env.API_URL + `/api/article/${slug}`);
 
   if (res.status == 404)
     return {data: false}
