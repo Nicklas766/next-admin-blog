@@ -5,6 +5,17 @@ const session = require('express-session')
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json()
 const MongoStore = require('connect-mongo')(session);
+var multer  = require('multer')
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'static/')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+  })
+  const upload = multer({storage: storage})
 
 
 const dsn = "mongodb://localhost:27017/blog"
@@ -107,6 +118,16 @@ router.post('/publish', jsonParser, async (req, res) => {
     }
     
 });
+router.post('/upload', upload.single('file'), function (req, res, next) {
+    // req.file is the `avatar` file
+    // req.body will hold the text fields, if there were any
+    const file = req.file
+    if (!file) {
+        return res.status(500).send('Internal error occured!')
+    }
+    res.status(200).send('success')
+  })
+
 
 /**
  * updates an article

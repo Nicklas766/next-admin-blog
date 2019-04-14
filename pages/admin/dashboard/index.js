@@ -25,6 +25,7 @@ class AdminDashboard extends React.Component {
         this.setState({articles: data});
     }
 
+
     render = () => (
         <Layout>
             <Head>
@@ -49,7 +50,10 @@ class AdminDashboard extends React.Component {
 
                 <h2> Upload sitemap.xml, robots.txt or images </h2>
                 
-
+                <form action="http://localhost:3000/admin/upload" method="post" encType="multipart/form-data">
+                    <input type="file" name="file" />
+                    <input type="submit" value="upload file to /static" />
+                </form>
                 
 
 
