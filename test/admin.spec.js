@@ -52,6 +52,7 @@ describe('This will test admin routes', () => {
             name: "my name",
             introduction: "introduction",
             text: "my text",
+            date: new Date()
         })
 
         await articleCollection.insert({
@@ -65,6 +66,7 @@ describe('This will test admin routes', () => {
             name: "my name",
             introduction: "introduction",
             text: "my text",
+            date: new Date()
         })
 
     });

@@ -9,9 +9,9 @@ const Layout = (props) => (
   <div className="wrap-all">
     
     
-       <Head>
-          <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
-        </Head>
+    <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
+    </Head>
    
     <Header/>
 

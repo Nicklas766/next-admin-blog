@@ -5,6 +5,14 @@ import Link from 'next/link'
 import ContentWrapper from '../components/ContentWrapper.js'
 import fetch from 'isomorphic-unfetch'
 
+function getDateFormattedString(dateString) {
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    const date = new Date(dateString);
+
+
+    return monthNames[date.getMonth()] + " " + date.getUTCDate()
+}
 
 class Home extends React.Component {
     constructor(props) {
@@ -40,9 +48,12 @@ class Home extends React.Component {
                                     <a>{article.name}</a>
                                 </Link>
                             </h2>
+                        
+                            <span> {getDateFormattedString(article.date)}</span>
+                            
 
                             <p>
-                                {new Date(article.date).toString()}
+                               
                                 {article.introduction}
                             </p>
                         </div>
@@ -59,12 +70,21 @@ class Home extends React.Component {
                     }
 
                     .text-container {
+                        display: flex;
+                        flex-wrap: wrap;
                         padding: 10px;
                     }
 
                     .text-container h2 {
                         margin-top: 0;
+                        margin-bottom: 0;
                         
+                    }
+
+                    span {
+                        width: 100%;
+                        font-size: 0.8em;
+                        text-align: left;
                     }
 
                     article {

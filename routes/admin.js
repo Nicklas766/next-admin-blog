@@ -128,8 +128,10 @@ router.post('/update', jsonParser, async (req, res) => {
                 return res.status(409).send('Already exists!');
     
             const id = cleanedBody._id;
-            delete cleanedBody._id
-            await articleCollection.collectionDo(col => col.update({_id: id}, cleanedBody));
+            delete cleanedBody._id;
+            const original = await articleCollection.fetch({_id: id});
+            cleanedBody.date = original[0].date;
+            await articleCollection.collectionDo(col => col.updateOne({_id: id}, cleanedBody));
             return res.status(200).send('Success: updated');
         }
         catch (err) {
