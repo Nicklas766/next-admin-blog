@@ -26,7 +26,9 @@ describe('This will test all api routes', () => {
             slug: "my-amazing-slug",
             title: "title",
             meta_description: "my description",
-            visible: "my visible",
+            img_url: "img_url",
+            img_alt: "img_url",
+            img_title: "img_url",
             name: "my name",
             text: "my text",
             img: "my img"
@@ -37,7 +39,9 @@ describe('This will test all api routes', () => {
             slug: "my-cool-slug",
             title: "title",
             meta_description: "my description",
-            visible: "my visible",
+            img_url: "img_url",
+            img_alt: "img_url",
+            img_title: "img_url",
             name: "my name",
             text: "my text",
             img: "my img"

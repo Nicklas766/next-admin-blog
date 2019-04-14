@@ -17,10 +17,12 @@ class AdminDashboard extends React.Component {
             slug: "",
             title: "",
             meta_description: "",
-            visible: "",
             name: "",
             text: "",
-            img: "",
+            img_url: "",
+            img_alt: "",
+            img_title: "",
+            introduction: "",
             articles: [],
             value: "new article",
             workMode: false,
@@ -81,10 +83,12 @@ class AdminDashboard extends React.Component {
             slug: article.slug,
             title: article.title,
             meta_description: article.meta_description,
-            visible: article.visible,
+            img_url: article.img_url,
+            img_alt: article.img_alt,
+            img_title: article.img_title,
             name: article.name,
+            introduction: article.introduction,
             text: article.text,
-            img: article.img
         });
         this.setState({workMode: true});
     }
@@ -126,12 +130,14 @@ class AdminDashboard extends React.Component {
                     <InputForm name="title" type={"input"} handleChange={this.handleChange} default={this.state.title || ''} maxLength={""} >Title</InputForm>
                     <InputForm name="meta_description" type={"input"} handleChange={this.handleChange} default={this.state.meta_description || ''} maxLength={""} >Description</InputForm>
 
-                    <p>Publish stuff:</p>
-                    <InputForm name="visible" type={"input"} handleChange={this.handleChange} default={this.state.visible || ''} maxLength={""}>Should Visible? Yes/No</InputForm>
-                    <InputForm name="img" type={"input"} handleChange={this.handleChange} default={this.state.img || ''} maxLength={""}>URL to image</InputForm>
+                    <p>Image stuff:</p>
+                    <InputForm name="img_url" type={"input"} handleChange={this.handleChange} default={this.state.img_url || ''} maxLength={""}>img_url</InputForm>
+                    <InputForm name="img_alt" type={"input"} handleChange={this.handleChange} default={this.state.img_alt || ''} maxLength={""}>img_alt</InputForm>
+                    <InputForm name="img_title" type={"input"} handleChange={this.handleChange} default={this.state.img_title || ''} maxLength={""}>img_title</InputForm>
 
                     <p>Article:</p>
                     <InputForm name="name" type={"input"} handleChange={this.handleChange} default={this.state.name || ''} maxLength={""} >Name</InputForm>
+                    <InputForm name="introduction" type={"input"} handleChange={this.handleChange} default={this.state.introduction || ''} maxLength={""} >introduction</InputForm>
                     <InputForm name="text" type={"textarea"} handleChange={this.handleChange} default={this.state.text || ''} maxLength={""} >Text</InputForm>
 
                     {this.state._id == "new" &&<Button onSelect={this.publish}>publish</Button>}

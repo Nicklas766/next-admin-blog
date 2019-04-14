@@ -46,10 +46,12 @@ describe('This will test admin routes', () => {
             slug: "my-amazing-slug",
             title: "title",
             meta_description: "my description",
-            visible: "my visible",
+            img_url: "img_url",
+            img_alt: "img_alt",
+            img_title: "img_title",
             name: "my name",
+            introduction: "introduction",
             text: "my text",
-            img: "my img"
         })
 
         await articleCollection.insert({
@@ -57,10 +59,12 @@ describe('This will test admin routes', () => {
             slug: "my-second-slug",
             title: "title",
             meta_description: "my description",
-            visible: "my visible",
+            img_url: "img_url",
+            img_alt: "img_alt",
+            img_title: "img_title",
             name: "my name",
+            introduction: "introduction",
             text: "my text",
-            img: "my img"
         })
 
     });
@@ -88,10 +92,12 @@ describe('This will test admin routes', () => {
                 slug: "my-new-article",
                 title: "my title",
                 meta_description: "my description",
-                visible: "my visible",
+                img_url: "img_url",
+                img_alt: "img_alt",
+                img_title: "img_title",
                 name: "my name",
+                introduction: "introduction",
                 text: "my text",
-                img: "my img",
             })
             .expect(200, 'Success: added', done);
     });
@@ -104,10 +110,12 @@ describe('This will test admin routes', () => {
                 slug: "my-amazing-slug",
                 title: "my title",
                 meta_description: "my description",
-                visible: "my visible",
+                img_url: "img_url",
+                img_alt: "img_alt",
+                img_title: "img_title",
                 name: "my name",
+                introduction: "introduction",
                 text: "my text",
-                img: "my img",
             })
             .expect(409, done);
     });
@@ -121,10 +129,12 @@ describe('This will test admin routes', () => {
                 slug: "my-amazing-slugve",
                 title: "my title",
                 meta_description: "my description",
-                visible: "my visible",
+                img_url: "img_url",
+                img_alt: "img_alt",
+                img_title: "img_title",
                 name: "my name",
+                introduction: "introduction",
                 text: "n text",
-                img: "my img",
             })
             .expect(200, done);
     });
@@ -138,8 +148,11 @@ describe('This will test admin routes', () => {
                 slug: "my-amazing-slugddd",
                 title: "my title",
                 meta_description: "my description",
-                visible: "my visible",
+                img_url: "img_url",
+                img_alt: "img_alt",
+                img_title: "img_title",
                 name: "my name",
+                introduction: "introduction",
                 text: "n texteeeeeeeeeeeeeeeeeeeeeeeee",
                 img: "my img",
             })
@@ -155,10 +168,12 @@ describe('This will test admin routes', () => {
                 slug: "my-amazing-slug",
                 title: "my title",
                 meta_description: "my description",
-                visible: "my visible",
+                img_url: "img_url",
+                img_alt: "img_alt",
+                img_title: "img_title",
                 name: "my name",
+                introduction: "introduction",
                 text: "my text",
-                img: "my img",
             })
             .expect(200, done);
     });
@@ -171,10 +186,12 @@ describe('This will test admin routes', () => {
                 slug: "",
                 title: "",
                 meta_description: "",
-                visible: "",
+                img_url: "img_url",
+                img_alt: "img_url",
+                img_title: "img_url",
+                introduction: "r",
                 name: "",
                 text: "",
-                img: "",
             })
             .expect(400, done);
     });
@@ -188,10 +205,11 @@ describe('This will test admin routes', () => {
                 slug: "",
                 title: "",
                 meta_description: "",
-                visible: "",
+                img_url: "img_url",
+                img_alt: "img_url",
+                img_title: "img_url",
                 name: "",
                 text: "",
-                img: "",
             })
             .expect(400, done);
     });
@@ -205,10 +223,12 @@ describe('This will test admin routes', () => {
                 slug: "my-second-slug",
                 title: "title",
                 meta_description: "my description",
-                visible: "my visible",
+                img_url: "img_url",
+                img_alt: "img_alt",
+                img_title: "img_title",
                 name: "my name",
+                introduction: "introduction",
                 text: "my text",
-                img: "my img"
             })
             .expect(409, done);
     });

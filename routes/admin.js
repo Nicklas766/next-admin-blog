@@ -30,7 +30,7 @@ router.use(function(req, res, next) {
     }
 
     if (req.session.user) {
- 
+
         return next();
     }
     res.status(403).redirect('/admin');
@@ -40,14 +40,14 @@ router.use(function(req, res, next) {
 router.post('/publish', jsonParser, async (req, res) => {
 
     // All inputs need to exist
-    for (x of ["slug", "title", "meta_description", "visible", "name", "text", "img"]) {
+    for (x of ["slug", "title", "meta_description", "img_url", "img_alt", "img_title", "name", "introduction", "text"]) {
         if (!req.body.hasOwnProperty(x))
             return res.status(400).send('Invalid details');
 
         if (req.body[x].length == 0)
             return res.status(400).send('Invalid details');
     }
-        
+
     try {
         const found = await articleCollection.fetch({slug: req.body.slug})
 
@@ -56,11 +56,11 @@ router.post('/publish', jsonParser, async (req, res) => {
             req.body._id = count + 1;
             await articleCollection.insert(req.body)
             return res.status(200).send('Success: added');
-        } 
+        }
 
         return res.status(409).send('Already exists!');
-        
-    } 
+
+    }
     catch (err) {
         return res.status(400).send('Internal error occured!');
     }
@@ -69,7 +69,7 @@ router.post('/publish', jsonParser, async (req, res) => {
 router.post('/update', jsonParser, async (req, res) => {
 
     // All inputs need to exist
-    for (x of ["_id", "slug", "title", "meta_description", "visible", "name", "text", "img"])
+    for (x of ["_id", "slug", "title", "meta_description", "img_url", "img_alt", "img_title", "name", "introduction", "text"])
         if (!req.body.hasOwnProperty(x))
             return res.status(400).send('Invalid details');
 
@@ -93,7 +93,7 @@ router.post('/update', jsonParser, async (req, res) => {
         delete req.body._id
         await articleCollection.collectionDo(col => col.update({_id: id}, req.body));
         return res.status(200).send('Success: updated');
-    } 
+    }
     catch (err) {
         return res.status(500).send('Internal error occured!');
     }

@@ -38,11 +38,7 @@ const Post = (props) => {
           </Head>
 
           <ContentWrapper>
-            <h1>{props.data.name}</h1>
-            <div>
               <ReactMarkdown source={input} renderers={{image: Image, paragraph: renderParagraph}} />
-
-            </div>
           </ContentWrapper>
         </Layout>
       )
@@ -57,6 +53,8 @@ Post.getInitialProps = async function(context) {
     return {data: false}
 
   const data = await res.json()
+
+  
 
   return { data }
 }
