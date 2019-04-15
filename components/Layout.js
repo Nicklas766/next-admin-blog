@@ -101,21 +101,18 @@ const Layout = (props) => (
           background: #272822;
           color: #f8f8f2;
           border-radius: 0.3em;
-          padding: 20px;
           white-space: pre-wrap;
           overflow: auto;
-          font-family: 'Open Sans', helvetica, sans-serif;
-          text-align: left;
          }
+         
          p code {
-            background: #272822;
+            font family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+            background: rgb(245, 242, 240) none repeat scroll 0% 0%;
             padding: 3px 4px;
             margin: 0 2px;
+            color: black;
+            border-radius: 0.3em;
          }
-
-       
-
-    
 
         li {
           margin-bottom: 1%;

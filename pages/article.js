@@ -1,5 +1,6 @@
 import Layout from '../components/Layout.js'
 import ContentWrapper from '../components/ContentWrapper.js'
+import CodeBlock from '../components/CodeBlock'
 import Head from 'next/head'
 import fetch from 'isomorphic-unfetch'
 import ReactMarkdown from 'react-markdown';
@@ -40,7 +41,7 @@ const Post = (props) => {
 
           <ContentWrapper>
               <h1>{props.data.name}</h1>
-              <ReactMarkdown source={input} renderers={{image: Image, paragraph: renderParagraph}} />
+              <ReactMarkdown source={input} renderers={{image: Image, paragraph: renderParagraph, code: CodeBlock}} />
           </ContentWrapper>
         </Layout>
       )
