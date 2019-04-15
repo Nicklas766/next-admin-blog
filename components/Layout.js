@@ -11,6 +11,8 @@ const Layout = (props) => (
     
     <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
+        <link href="https://fonts.googleapis.com/css?family=Cabin|Lora" rel="stylesheet" /> 
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans" rel="stylesheet"/> 
     </Head>
    
     <Header/>
@@ -71,15 +73,35 @@ const Layout = (props) => (
            }
          }
 
-       
+       pre {
+        background: #272822;
+        color: #f8f8f2;
+        border-radius: 0.3em;
+        padding: 20px;
+        white-space: pre-wrap;
+        overflow: auto;
+        font-family: 'Open Sans', helvetica, sans-serif;
+        text-align: left;
+       }
+       p code {
+          background: rgba(0,0,0,.05);
+          padding: 3px 4px;
+          margin: 0 2px;
+       }
 
 
         h1, h2, h3 {
-          font-weight: 500;
-          color: black;
+
+         
+          color: #1D1B1B;
+          line-height: 1.2em;
+          text-align: left;
+
           margin: 24px auto;
           letter-spacing: 2px;
           width: 100%;
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 700;
         }
 
         h1 {
@@ -96,23 +118,24 @@ const Layout = (props) => (
         }
 
         p, a, li {
-          font-weight: 300;
+          font-family: 'Lora', serif;
+          font-family: 'Open Sans', helvetica, sans-serif;
+          font-weight: 400;
           letter-spacing: 1.4px;
-          line-height: 1.78em;
-          color: black;
+          line-height: 1.8em;
+          color: #333;
           text-align: left;
         }
 
-        a {
-          color: #4c7af1;
-        }
+       
+
+    
 
         li {
           margin-bottom: 1%;
         }
         p {
-          margin-top: 24px;
-          margin-bottom: 24px;
+          margin: 0 0 25px 0;
         }
 
         

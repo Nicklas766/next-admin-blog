@@ -5,21 +5,19 @@ const Header = () => (
 <div>
     <Link href={"/"}>
       <a>
-        <span>example.com</span>
+        <span>ProgrammingSoup</span>
+        <p>A soup of coding articles</p>
       </a>  
     </Link>
     
     <nav>
+        
         <Link href={"/"}>
-            <a>{"home"}</a>
+            <a>{"Articles"}</a>
         </Link>
 
         <Link href={"/about"}>
-            <a>{"about"}</a>
-        </Link>
-        
-        <Link href={"/admin"}>
-            <a>{"admin"}</a>
+            <a>{"About"}</a>
         </Link>
      </nav>
 
@@ -28,40 +26,46 @@ const Header = () => (
             display: flex;
             flex-wrap: wrap;
             text-align: center;
-            background: #1F262E;
+            background: #273747;
+            border-bottom-left-radius: 0.1em;
+            border-bottom-right-radius: 0.1em;
           }
 
           nav {
             width: 100%;
-            border-top: 1px solid white;
-            border-bottom: 1px solid white;
           }
-
           a {     
             text-decoration:none;
             width: 100%;
           }
+
 
           nav a {
             width: 50px;
             margin: 15px;
             color: white;
           }
-          a:hover {
-            opacity: 0.6;
-          }
+
 
           span {
-            font-family: Lato,sans-serif;
-            color: #c60000;
+            font-family: 'Montserrat',sans-serif;
+            color: white;
             text-align: center;
             width: 100%;
-            font-size: 2.5em;
+            font-size: 2em;
             letter-spacing: 1.5px;
      
             display: block;
-            margin-bottom: 24px;
+            margin-bottom: 5px;
             margin-top: 24px;
+          }
+
+          p {
+            font-size: 0.9em;
+            margin-top: 0;
+            font-weight: bold;
+            color: #9DA1B3;
+            text-align: center;
           }
 
           

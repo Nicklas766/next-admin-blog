@@ -30,6 +30,9 @@ class Home extends React.Component {
             <ContentWrapper>
                 <div className="wrapper">
                 <h1>Articles</h1>
+                <p>Browse around and read our cool articles!</p>
+
+                <h2>Latest Articles:</h2>
 
                 {this.props.articles.map(article => (
                     <article key={article._id}>
@@ -53,7 +56,6 @@ class Home extends React.Component {
                             
 
                             <p>
-                               
                                 {article.introduction}
                             </p>
                         </div>
@@ -91,7 +93,6 @@ class Home extends React.Component {
                         box-shadow: 0 0 11px 2px #dfdfdf;
                         background: #fff;
                         margin-bottom: 30px;
-                        font-family: Lato,sans-serif;
                         border-radius: 0.3em;
                         width: 48%;
                         margin-left: 1%;
@@ -101,16 +102,22 @@ class Home extends React.Component {
                     }
 
                     article a {
+                        font-family: 'Montserrat',sans-serif;
                         font-weight: bold;
-                        color: #000;
-                        line-height: 1.6;
+                        color: #1D1B1B;
+                        line-height: 1.2em;
                         text-decoration: none;
                     }
-
-                    article a:hover {
+                    h2 a:hover {
                         transition: 0.5s;
-                        color: #c60000;
-                    }
+                        color: #6DBCDB;
+                        text-decoration: underline;
+                      }
+
+                      p {
+                          margin-top: 24px;
+                      }
+
 
                     /* Large screens ----------- */
                     @media only screen  and (max-width : 1100px) {

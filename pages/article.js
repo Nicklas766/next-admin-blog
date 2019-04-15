@@ -24,6 +24,15 @@ function renderParagraph(props) {
   return <p>{children}</p>;
 }
 
+function getDateFormattedString(dateString) {
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  const date = new Date(dateString);
+
+
+  return monthNames[date.getMonth()] + " " + date.getUTCDate()
+}
+
 const Post = (props) => {
   if (!props.data) 
     return <Error statusCode={404}/>;
@@ -38,6 +47,8 @@ const Post = (props) => {
           </Head>
 
           <ContentWrapper>
+              <h1>{props.data.name}</h1>
+              {/* <span> {getDateFormattedString(props.data.date)}</span> */}
               <ReactMarkdown source={input} renderers={{image: Image, paragraph: renderParagraph}} />
           </ContentWrapper>
         </Layout>

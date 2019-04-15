@@ -31,9 +31,6 @@ router.use(session({
 // Redirect to login if not logged in
 router.use(function(req, res, next) {
 
-    
-
-
     if (req._parsedUrl.pathname == "/") {
         return next();
     }
@@ -92,8 +89,6 @@ const articleExists = (id) =>
     articleCollection.fetch({_id: id})
     .then(res => (res !== undefined && res.length > 0))
     .catch(err => false)
-
-
 
 /**
  * publishes an article
