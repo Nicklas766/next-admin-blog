@@ -3,8 +3,6 @@ import Header from './Header'
 import Footer from './Footer'
 
 
-
-
 const Layout = (props) => (
   <div className="wrap-all">
     
@@ -27,9 +25,6 @@ const Layout = (props) => (
           padding: 0;
           margin: 0;
           background: #F9F9F9;
-          background-size: 50% 50%;
-          background-attachment: fixed;
-          background-repeat: no-repeat;*/
         }
 
         .wrap-all, .wrap-content {
@@ -113,7 +108,7 @@ const Layout = (props) => (
           text-align: left;
          }
          p code {
-            background: rgba(0,0,0,.05);
+            background: #272822;
             padding: 3px 4px;
             margin: 0 2px;
          }

@@ -19,8 +19,6 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 app.prepare().then(() => {
 
   const server = express();
-
-
   // Favicon
   server.use(favicon(path.join(__dirname, 'static', 'favicon.ico')))
 
