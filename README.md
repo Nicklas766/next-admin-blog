@@ -43,5 +43,33 @@ escape
 
 enter
 
-### Step 3: ..
+### Step 3: Setup SSH
+
+```
+if server running, stop it.
+
+cd your_repo
+
+tmux
+
+npm start
+
+CTRL + B
+
+D
+
+# cd to root
+cd 
+```
+
+follow 
+https://gist.github.com/Kocisov/2a9567eb51b83dfef48efce02ef3ab06
+
+note at step 3 (Edit our nginx file) add the code here:
+vim /etc/nginx/sites-enabled/default
+
+
+
+
+
 
