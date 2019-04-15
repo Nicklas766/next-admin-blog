@@ -17,21 +17,31 @@ cd your_repo
 npm install
 
 
+### Step 2: setup your .env file
 
-### Step 2: setup mongodb
-download your own repo
+touch .env
 
-cd yourrepo
+vim .env
 
-npm install
+i
 
-### Step 3: setup your .env file
 ```
-API_URL = http://localhost:3000
+# Just an illustration, but these variables should be set
+# note: API_URL = (http://localhost:3000 || http://example.com:3000)
+
+API_URL = http://example.com:3000
 MONGODB_URI = mongodb://localhost:27017/blog
 GOOGLE_ANALYTICS_ID =
 HTML_LANG = en
 ADMIN_USERNAME = username
 ADMIN_PASSWORD = password
 ```
+
+escape
+
+:wq
+
+enter
+
+### Step 3: ..
 
