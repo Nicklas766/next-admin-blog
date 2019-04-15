@@ -3,6 +3,8 @@ const next = require('next')
 const favicon = require('serve-favicon')
 const path = require('path')
 
+require('dotenv').config()
+
 // routes
 var adminRoutes = require('./routes/admin');
 var apiRoutes = require('./routes/api');

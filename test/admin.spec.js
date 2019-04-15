@@ -2,7 +2,7 @@ const assert = require('assert');
 const supertest = require('supertest');
 const mocha = require('mocha');
 const express = require('express');
-
+require('dotenv').config()
 // routes we are testing
 const routes = require("../routes/admin.js");
 

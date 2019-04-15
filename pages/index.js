@@ -10,7 +10,6 @@ function getDateFormattedString(dateString) {
 
     const date = new Date(dateString);
 
-
     return monthNames[date.getMonth()] + " " + date.getUTCDate()
 }
 
@@ -19,7 +18,7 @@ class Home extends React.Component {
         super(props);
         this.state = {};
     }
-    //https://www.gotchseo.com/squeeze-page/
+
     render = () => (
         <Layout>
             <Head>
@@ -52,7 +51,7 @@ class Home extends React.Component {
                                 </Link>
                             </h2>
                         
-                            <span> {getDateFormattedString(article.date)}</span>
+                            <span>{getDateFormattedString(article.date)}</span>
                             
 
                             <p>
@@ -87,6 +86,8 @@ class Home extends React.Component {
                         width: 100%;
                         font-size: 0.8em;
                         text-align: left;
+                        font-family: 'Open Sans',helvetica,sans-serif;
+                        color: #9DA1B3;
                     }
 
                     article {

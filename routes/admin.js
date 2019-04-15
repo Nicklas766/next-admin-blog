@@ -18,12 +18,11 @@ const storage = multer.diskStorage({
   const upload = multer({storage: storage})
 
 
-const dsn = "mongodb://localhost:27017/blog"
-const articleCollection  = require('mongo-connecter').init(dsn, 'articles')
+const articleCollection = require('mongo-connecter').init(process.env.MONGODB_URI, 'articles')
 
 router.use(session({
     secret: 'my-badly-placed-token',
-    store: new MongoStore({url: "mongodb://localhost:27017/blog"}),
+    store: new MongoStore({url: process.env.MONGODB_URI}),
     resave: false,
     saveUninitialized: true
   }));

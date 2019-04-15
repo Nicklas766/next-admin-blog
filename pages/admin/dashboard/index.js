@@ -20,7 +20,7 @@ class AdminDashboard extends React.Component {
     }
 
     async componentDidMount() {
-        const res = await fetch('http://localhost:3000/api/articles')
+        const res = await fetch('/api/articles')
         const data = await res.json()
         this.setState({articles: data});
     }
@@ -36,8 +36,7 @@ class AdminDashboard extends React.Component {
 
             <ContentWrapper>
                 <h1>Admin Dashboard</h1>
-
-                  
+      
                 <Link href={{ pathname: '/admin/dashboard/edit'}}><a>Create new article!</a></Link>
 
                 <h2>Work with previous articles</h2>
@@ -50,7 +49,7 @@ class AdminDashboard extends React.Component {
 
                 <h2> Upload sitemap.xml, robots.txt or images </h2>
                 
-                <form action="http://localhost:3000/admin/upload" method="post" encType="multipart/form-data">
+                <form action={`${process.env.API_URL}/admin/upload`} method="post" encType="multipart/form-data">
                     <input type="file" name="file" />
                     <input type="submit" value="upload file to /static" />
                 </form>

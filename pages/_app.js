@@ -25,4 +25,4 @@ class MyApp extends App {
   }
 }
 
-export default withGA("", Router)(MyApp);
+export default withGA(process.env.GOOGLE_ANALYTICS_ID, Router)(MyApp);

@@ -2,7 +2,7 @@ const assert = require('assert');
 const supertest = require('supertest');
 const mocha = require('mocha');
 const express = require('express');
-
+require('dotenv').config()
 const dsn = "mongodb://localhost:27017/blog"
 const articleCollection  = require('mongo-connecter').init(dsn, 'articles')
 

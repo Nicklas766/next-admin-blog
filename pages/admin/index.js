@@ -44,7 +44,7 @@ class Admin extends React.Component {
             <ContentWrapper>
                 <h1>Admin page</h1>
                 <p>Please leave this page if not authorized</p>
-                {this.state.logged && <a href="/admin/dashboard">Go to dashboard</a>}
+                {this.state.logged && <a href={`${process.env.API_URL}/admin/dashboard`}>Go to dashboard</a>}
                 <InputForm name="username" type={"input"} handleChange={this.handleChange} maxLength={"100"} >Username</InputForm>
                 <InputForm name="password" type={"input"} handleChange={this.handleChange} maxLength={"100"} >Password</InputForm>
                 <Button onSelect={this.login}>login</Button>

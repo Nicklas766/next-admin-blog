@@ -10,8 +10,9 @@ const ContentWrapper = (props) => (
           margin-left: auto;
           margin-right: auto;
           margin-top: 5%;
-          min-height: 300px;
+          min-height: 800px;
           border-radius: 2em;
+          margin-bottom: 24px;
       }
 
       .text-wrapper {
@@ -21,6 +22,7 @@ const ContentWrapper = (props) => (
           margin: 0 auto;
           padding: 10px;
       }
+      
 
   `}</style>
   </div>

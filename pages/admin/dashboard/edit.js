@@ -29,7 +29,7 @@ class AdminEdit extends React.Component {
       }
 
     async componentDidMount() {
-        const res = await fetch(process.env.API_URL + `/api/article/${this.props.query.article}`)
+        const res = await fetch(`/api/article/${this.props.query.article}`)
         
         if (res.status == 404) {
             this.setState({

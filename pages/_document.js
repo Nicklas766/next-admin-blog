@@ -12,7 +12,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang={"en"}>
+      <Html lang={process.env.HTML_LANG}>
         <Head>
         </Head>
         <body className="custom_class">
