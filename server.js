@@ -2,6 +2,7 @@ const express = require('express')
 const next = require('next')
 const favicon = require('serve-favicon')
 const path = require('path')
+ 
 
 require('dotenv').config()
 
@@ -18,6 +19,7 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 app.prepare().then(() => {
 
   const server = express();
+
 
   // Favicon
   server.use(favicon(path.join(__dirname, 'static', 'favicon.ico')))

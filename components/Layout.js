@@ -8,10 +8,8 @@ import Footer from './Footer'
 const Layout = (props) => (
   <div className="wrap-all">
     
-    
     <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
-        <link href="https://fonts.googleapis.com/css?family=Cabin|Lora" rel="stylesheet" /> 
         <link href="https://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans" rel="stylesheet"/> 
     </Head>
    
@@ -73,22 +71,6 @@ const Layout = (props) => (
            }
          }
 
-       pre {
-        background: #272822;
-        color: #f8f8f2;
-        border-radius: 0.3em;
-        padding: 20px;
-        white-space: pre-wrap;
-        overflow: auto;
-        font-family: 'Open Sans', helvetica, sans-serif;
-        text-align: left;
-       }
-       p code {
-          background: rgba(0,0,0,.05);
-          padding: 3px 4px;
-          margin: 0 2px;
-       }
-
 
         h1, h2, h3 {
           color: #1D1B1B;
@@ -112,7 +94,6 @@ const Layout = (props) => (
         }
 
         p, a, li {
-          font-family: 'Lora', serif;
           font-family: 'Open Sans', helvetica, sans-serif;
           font-weight: 400;
           letter-spacing: 1.4px;
@@ -120,6 +101,22 @@ const Layout = (props) => (
           color: #333;
           text-align: left;
         }
+
+        pre {
+          background: #272822;
+          color: #f8f8f2;
+          border-radius: 0.3em;
+          padding: 20px;
+          white-space: pre-wrap;
+          overflow: auto;
+          font-family: 'Open Sans', helvetica, sans-serif;
+          text-align: left;
+         }
+         p code {
+            background: rgba(0,0,0,.05);
+            padding: 3px 4px;
+            margin: 0 2px;
+         }
 
        
 

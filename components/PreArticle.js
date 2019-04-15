@@ -28,7 +28,6 @@ const PreArticle = (props) => (
                         
             <span>{getDateFormattedString(props.article.date)}</span>
                             
-
             <p>{props.article.introduction}</p>
         </div>
 
