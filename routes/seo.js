@@ -2,9 +2,17 @@ var express = require('express');
 var router = express.Router();
 const session = require('express-session')
 
+function getPathToStaticDir() {
+  if (__dirname.includes("\\")) {
+    return __dirname.replace('\\routes', '/static')
+  } 
+  else {
+    return __dirname.replace('/routes', '/static')
+  }
+}
 // options for static files
 const staticSendOptions = (type) => ({
-  root: __dirname.replace('\\routes', '/static'),
+  root: getPathToStaticDir(),
   headers: {'Content-Type': type}
 });
 
