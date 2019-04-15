@@ -91,8 +91,6 @@ const Layout = (props) => (
 
 
         h1, h2, h3 {
-
-         
           color: #1D1B1B;
           line-height: 1.2em;
           text-align: left;
@@ -106,10 +104,6 @@ const Layout = (props) => (
 
         h1 {
           font-size: 2.25em;
-        }
-
-        h2, h3 {
-          text-align: left;
         }
 
         b {

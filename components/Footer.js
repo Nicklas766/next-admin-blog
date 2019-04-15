@@ -10,13 +10,6 @@ const Footer = () => (
           width: 100%;
           justify-content: center;
         }
-
-
-        a {
-          width: 100%;
-          color: white;
-          text-align: center;
-        }
       `}</style>
       </footer>
     
